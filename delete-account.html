@@ -267,6 +267,58 @@
       color: var(--text);
     }
 
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--danger);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .section-label.retention {
+      color: var(--accent2);
+    }
+
+    .data-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .data-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .data-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--danger);
+      flex-shrink: 0;
+    }
+
+    .retention-box {
+      background: rgba(124,92,252,0.06);
+      border: 1px solid rgba(124,92,252,0.2);
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .retention-box strong {
+      color: #c9bbff;
+    }
+
     footer {
       margin-top: 2.5rem;
       text-align: center;
@@ -337,6 +389,25 @@
       <div class="sla-icon">✅</div>
       <div class="sla-text">Your data will be permanently deleted within <strong>48 hours</strong> of receiving your request.</div>
     </div>
+
+    <hr class="divider"/>
+
+    <p class="section-label">What data will be deleted</p>
+    <p style="font-size:0.88rem; color:var(--muted); margin-bottom:1rem; line-height:1.6;">When your account is deleted, we will permanently remove:</p>
+    <ul class="data-list">
+      <li>Your account information (email, login credentials)</li>
+      <li>Your app usage data and preferences</li>
+    </ul>
+
+    <hr class="divider"/>
+
+    <p class="section-label retention">Data Retention</p>
+    <div class="retention-box">
+      We do not retain any personal data after deletion.<br/><br/>
+      Some minimal logs may be retained temporarily for security and legal purposes for up to <strong>30 days</strong>, after which they are <strong>permanently deleted</strong>.
+    </div>
+
+    <hr class="divider"/>
 
     <p class="note">
       <strong>Please note:</strong> Once deleted, your account, progress, and all associated data cannot be recovered. If you have an active subscription, please ensure it is cancelled before requesting deletion.
