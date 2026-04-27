@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delete Account – LetsCrackIt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0f14;
+      --surface: #161a22;
+      --border: #252b38;
+      --accent: #4f8ef7;
+      --accent2: #7c5cfc;
+      --text: #e8ecf4;
+      --muted: #7a8499;
+      --danger: #f75f5f;
+      --success: #4fca8e;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Sora', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      overflow-x: hidden;
+    }
+
+    /* Ambient glow blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px; left: -120px;
+      width: 480px; height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px; right: -100px;
+      width: 420px; height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,92,252,0.10) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 560px;
+      width: 100%;
+      padding: 2.8rem 2.6rem;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .logo-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .logo-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .greeting {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    h1 span {
+      color: var(--danger);
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.75rem 0;
+    }
+
+    .steps-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .step {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      min-width: 28px; height: 28px;
+      background: rgba(79,142,247,0.12);
+      border: 1px solid rgba(79,142,247,0.25);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .step-content strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Email card */
+    .email-block {
+      background: rgba(79,142,247,0.06);
+      border: 1px solid rgba(79,142,247,0.2);
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      margin: 1.5rem 0;
+    }
+
+    .email-block .field-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .email-block .field-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem;
+      color: var(--accent);
+      word-break: break-all;
+    }
+
+    .email-block .field-value a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .email-block .field-value a:hover {
+      text-decoration: underline;
+    }
+
+    .subject-block {
+      background: rgba(124,92,252,0.07);
+      border: 1px solid rgba(124,92,252,0.2);
+      border-radius: 12px;
+      padding: 1.2rem 1.4rem;
+      margin: 0.75rem 0 1.5rem;
+    }
+
+    .subject-block .field-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .subject-block .field-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem;
+      color: #c9bbff;
+    }
+
+    /* SLA badge */
+    .sla-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(79,202,142,0.07);
+      border: 1px solid rgba(79,202,142,0.2);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+    }
+
+    .sla-icon {
+      font-size: 1.1rem;
+    }
+
+    .sla-text {
+      font-size: 0.87rem;
+      color: var(--success);
+      font-weight: 500;
+    }
+
+    .note {
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      border-left: 2px solid var(--border);
+      padding-left: 0.9rem;
+    }
+
+    .note strong {
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      z-index: 1;
+      position: relative;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="logo-row">
+      <div class="logo-icon">🚀</div>
+      <div class="logo-name">LetsCrackIt</div>
+    </div>
+
+    <p class="greeting">Account Management</p>
+    <h1>Delete Your <span>Account</span></h1>
+    <p class="subtitle">
+      We're sorry to see you go. If you'd like to permanently delete your LetsCrackIt account and all associated data, just follow the simple steps below — we'll take care of the rest promptly.
+    </p>
+
+    <hr class="divider"/>
+
+    <p class="steps-label">How to request deletion</p>
+
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-content">
+        <p>Open your preferred email app and compose a new email to the address below.</p>
+      </div>
+    </div>
+
+    <div class="email-block">
+      <div class="field-label">Send email to</div>
+      <div class="field-value">
+        <a href="mailto:developershanker95@gmail.com">developershanker95@gmail.com</a>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-content">
+        <p>Use the exact subject line below so we can identify and process your request quickly.</p>
+      </div>
+    </div>
+
+    <div class="subject-block">
+      <div class="field-label">Subject line</div>
+      <div class="field-value">Delete my account</div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-content">
+        <p>Send the email — no body text required. We'll process your request and confirm deletion.</p>
+      </div>
+    </div>
+
+    <div class="sla-row">
+      <div class="sla-icon">✅</div>
+      <div class="sla-text">Your data will be permanently deleted within <strong>48 hours</strong> of receiving your request.</div>
+    </div>
+
+    <p class="note">
+      <strong>Please note:</strong> Once deleted, your account, progress, and all associated data cannot be recovered. If you have an active subscription, please ensure it is cancelled before requesting deletion.
+    </p>
+  </div>
+
+  <footer>
+    &copy; 2025 LetsCrackIt. All rights reserved. &nbsp;·&nbsp;
+    <a href="mailto:developershanker95@gmail.com">Contact Support</a>
+  </footer>
+
+</body>
+</html>
