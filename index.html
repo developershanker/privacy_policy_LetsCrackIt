@@ -49,6 +49,14 @@
       border-radius: 9999px;
       margin-right: 6px;
     }
+    .highlight-box {
+      background: #eff6ff;
+      border-left: 4px solid #4f46e5;
+      border-radius: 6px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+    }
+    .highlight-box p { margin-bottom: 0; color: #1e3a8a; }
     footer {
       text-align: center;
       font-size: 0.82rem;
@@ -62,7 +70,7 @@
 
 <header>
   <h1>Privacy Policy</h1>
-  <p>LetsCrackIt &nbsp;|&nbsp; Effective date: April 27, 2026 &nbsp;|&nbsp; Last updated: April 27, 2026</p>
+  <p>LetsCrackIt &nbsp;|&nbsp; Effective date: April 27, 2026 &nbsp;|&nbsp; Last updated: May 9, 2026</p>
 </header>
 
 <main>
@@ -91,11 +99,30 @@
       <li>Profile photo URL (provided by Google Sign-In)</li>
     </ul>
 
-    <p><span class="badge">Health &amp; fitness data</span></p>
+    <p><span class="badge">Health &amp; fitness data you enter manually</span></p>
     <ul>
-      <li>Body weight and height entries you record</li>
+      <li>Body weight and height entries you record in the app</li>
       <li>BMI calculation history with timestamps</li>
+      <li>Date of birth and biological sex (used for age-accurate BMI calculation)</li>
     </ul>
+
+    <p><span class="badge">Health data read from Google Health Connect (Android) / Apple Health (iOS)</span></p>
+    <ul>
+      <li><strong>Step count</strong> — displayed as an informational stat on the home screen</li>
+      <li><strong>Heart rate</strong> — displayed as an informational stat on the home screen</li>
+      <li><strong>Sleep duration</strong> — displayed as an informational stat on the home screen</li>
+      <li><strong>Body weight</strong> — used to auto-fill the weight field in the BMI calculator</li>
+      <li><strong>Height</strong> — used to auto-fill the height field in the BMI calculator</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p>
+        <strong>Important:</strong> Health data read from Google Health Connect or Apple Health is used
+        only within the app to display your stats and pre-fill the BMI calculator. This data is
+        <strong>never uploaded to our servers, never stored in our database, and never shared
+        with any third party.</strong> It exists only on your device during your current session.
+      </p>
+    </div>
 
     <p><span class="badge">Device &amp; usage data</span></p>
     <ul>
@@ -111,17 +138,54 @@
     <h2>3. How We Use Your Information</h2>
     <ul>
       <li>To create and manage your account</li>
-      <li>To store and display your health tracking history</li>
+      <li>To store and display your BMI tracking history</li>
       <li>To authenticate you securely via Firebase Authentication and Google Sign-In</li>
-      <li>To synchronize your data across devices in real time via Firebase Firestore</li>
+      <li>To synchronize your BMI data across devices in real time via Firebase Firestore</li>
       <li>To improve app functionality through Firebase Remote Config</li>
+      <li>To display health stats (steps, heart rate, sleep) on your home screen dashboard as a convenience utility — read locally from Health Connect or Apple Health, never transmitted</li>
+      <li>To auto-fill the BMI calculator using your most recent weight and height from Health Connect or Apple Health — read locally, never transmitted</li>
     </ul>
     <p>We do <strong>not</strong> sell, rent, or share your personal data with third parties for
     marketing purposes.</p>
   </section>
 
   <section>
-    <h2>4. Third-Party Services</h2>
+    <h2>4. Google Health Connect</h2>
+    <p>
+      On Android devices, LetsCrackIt optionally integrates with
+      <strong>Google Health Connect</strong> to read health and fitness data. This integration is
+      entirely optional — the app is fully functional without granting Health Connect access.
+    </p>
+    <p>Our use of Health Connect data is strictly limited to the following:</p>
+    <ul>
+      <li>Data is read <strong>on-device only</strong> at the time you tap "Connect"</li>
+      <li>Data is displayed within the app and is <strong>not stored, uploaded, or shared</strong></li>
+      <li>We only request the minimum permissions necessary (Steps, Heart Rate, Sleep, Weight, Height)</li>
+      <li>You can revoke Health Connect permissions at any time from your device settings</li>
+    </ul>
+    <p>
+      Our use of Google Health Connect data complies with the
+      <a href="https://developer.android.com/health-and-fitness/health-connect/privacy-policy" target="_blank" rel="noopener">
+        Health Connect Permissions Policy
+      </a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>5. Apple Health (iOS)</h2>
+    <p>
+      On iOS devices, LetsCrackIt optionally integrates with <strong>Apple Health</strong> (HealthKit)
+      to read health and fitness data. This integration is entirely optional.
+    </p>
+    <ul>
+      <li>Data is read <strong>on-device only</strong> at the time you tap "Import from Health app"</li>
+      <li>Data is displayed within the app and is <strong>not stored, uploaded, or shared</strong></li>
+      <li>You can revoke HealthKit permissions at any time from iOS Settings → Privacy → Health</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>6. Third-Party Services</h2>
     <p>LetsCrackIt uses the following third-party services. Each has its own privacy policy:</p>
     <ul>
       <li>
@@ -136,15 +200,25 @@
           policies.google.com/privacy
         </a>
       </li>
+      <li>
+        <strong>Google Health Connect</strong> –
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+          policies.google.com/privacy
+        </a>
+      </li>
     </ul>
   </section>
 
   <section>
-    <h2>5. Data Storage &amp; Security</h2>
+    <h2>7. Data Storage &amp; Security</h2>
     <p>
-      Your data is stored on Google Firebase servers, which are protected by industry-standard security
-      measures. We also store a minimal copy of your session locally on your device (via encrypted
-      AsyncStorage) to support offline functionality.
+      Your account and BMI history data is stored on Google Firebase servers, protected by
+      industry-standard security measures. A minimal copy of your session is stored locally on your
+      device (via encrypted AsyncStorage) to support offline functionality.
+    </p>
+    <p>
+      Health data read from Google Health Connect or Apple Health is <strong>never stored on our
+      servers</strong> — it remains on your device only.
     </p>
     <p>
       While we implement reasonable safeguards, no method of electronic transmission or storage is 100%
@@ -153,15 +227,15 @@
   </section>
 
   <section>
-    <h2>6. Data Retention</h2>
+    <h2>8. Data Retention</h2>
     <p>
       We retain your personal data for as long as your account is active. You may request deletion of
-      your account and associated data at any time by contacting us (see Section 9).
+      your account and all associated data at any time by contacting us (see Section 11).
     </p>
   </section>
 
   <section>
-    <h2>7. Children's Privacy</h2>
+    <h2>9. Children's Privacy</h2>
     <p>
       LetsCrackIt is not directed to children under the age of 13. We do not knowingly collect personal
       information from children under 13. If we become aware that a child under 13 has provided us with
@@ -170,20 +244,20 @@
   </section>
 
   <section>
-    <h2>8. Your Rights</h2>
+    <h2>10. Your Rights</h2>
     <p>Depending on your location, you may have the right to:</p>
     <ul>
       <li>Access the personal data we hold about you</li>
       <li>Request correction of inaccurate data</li>
       <li>Request deletion of your data ("right to be forgotten")</li>
       <li>Object to or restrict our processing of your data</li>
-      <li>Withdraw consent at any time</li>
+      <li>Withdraw consent at any time (including revoking Health Connect / Apple Health permissions)</li>
     </ul>
     <p>To exercise any of these rights, please contact us using the details below.</p>
   </section>
 
   <section>
-    <h2>9. Contact Us</h2>
+    <h2>11. Contact Us</h2>
     <p>
       If you have questions, concerns, or requests regarding this Privacy Policy or your personal data,
       please reach out to us:
@@ -200,7 +274,7 @@
   </section>
 
   <section>
-    <h2>10. Changes to This Policy</h2>
+    <h2>12. Changes to This Policy</h2>
     <p>
       We may update this Privacy Policy from time to time. We will notify you of material changes by
       updating the "Last updated" date at the top of this page. Continued use of the app after changes
